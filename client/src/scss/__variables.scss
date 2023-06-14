@@ -1,0 +1,56 @@
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$extra-large: 1200px;
+
+@mixin sm {
+    @media screen and (max-width: $small) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media screen and (min-width: $small) and (max-width: $medium) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media screen and (min-width: $medium) and (max-width: $large) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media screen and (min-width: $large) and (max-width: $extra-large) {
+        @content;
+    }
+}
+
+@font-face {
+    font-family: DosisRegular;
+    src: url("../../src/assets/fonts/Dosis-Regular.ttf")
+}
+
+@font-face {
+    font-family: DosisBold;
+    src: url("../../src/assets/fonts/Dosis-Bold.ttf")
+}
+
+@font-face {
+    font-family: DosisExtraBold;
+    src: url("../../src/assets/fonts/Dosis-ExtraBold.ttf")
+}
+
+@font-face {
+    font-family: DosisMedium;
+    src: url("../../src/assets/fonts/Dosis-Medium.ttf")
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
