@@ -3,12 +3,12 @@ import { Input } from 'baseui/input';
 import { Button } from 'baseui/button';
 import { ThemeProvider, useStyletron } from 'baseui/styles';
 import Image from '../../assets/photos/img.png'
-import Image2 from '../../assets/photos/icons8-auction.svg'
+import Image2 from '../../assets/photos/chest.svg'
 import { LightTheme } from 'baseui';
 import Cloud1 from '../../assets/photos/icons8-cloud.svg'
 import { ChangeEvent, useEffect, useState } from 'react';
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type SendRegisterType = {
   username: string,
@@ -122,6 +122,7 @@ const Register = () => {
                 <Input maxLength={30} type="password" onChange={(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => changeForm(e, "confirmPassword")}/>
                 <Button 
                   onClick={(e: React.SyntheticEvent<HTMLButtonElement, Event>) => handleSubmit(e)}
+                  style={{marginTop: '1rem'}}
                   overrides={{
                     BaseButton: {
                       style: ({ $theme }) => ({
@@ -136,9 +137,14 @@ const Register = () => {
                   }}
 > Register </Button>
             </form>
+
         {
           error && <Error error={error} />
         }
+        <div className="info">
+          <p> Already have an account? </p>
+          <Link to="/login" style={{color: 'white'}}> Login </Link>
+        </div>
         </div>
         <div className="imageContainer">
           <img className="image" src={Image} alt="auction" />
@@ -158,7 +164,7 @@ const Register = () => {
   )
 }
 
-function Error({ error }: ErrorType): JSX.Element {
+export function Error({ error }: ErrorType): JSX.Element {
   
   return (
     <div className="error">  

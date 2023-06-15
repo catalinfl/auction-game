@@ -11,6 +11,7 @@ body {
     flex-direction: row;
     max-width: 1280px;
     align-items: center;
+    height: 97vh;
     margin: 0 auto;
     gap: 10rem;
     position: relative;
@@ -31,6 +32,7 @@ body {
         flex-direction: column;
         gap: 10rem;
     }
+
 
     &__container {
         font-family: DosisExtraBold;
@@ -63,6 +65,8 @@ body {
             margin-top: 5rem;
         }
 
+
+
         &__form {
             display: flex;
             flex-direction: column;
@@ -77,9 +81,17 @@ body {
         flex-direction: column;
         background-color: rgb(184, 224, 225);
         opacity: 0.8;
+        padding: 2rem;
+        
+        
 
         .image {
             max-width: 450px;
+
+            @include xl {
+                display: flex;
+                max-width: 300px;
+            }
         }
 
         @include sm {
@@ -93,6 +105,22 @@ body {
         @include lg {
             display: none;
         }
+
+        @include xl {
+            display: flex;
+            max-width: 400px;
+        }
+    }
+
+    .info {
+        background-color: rgb(95, 221, 223);
+        padding: 1rem;
+        gap: 1rem;
+        margin-top: 2rem;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
@@ -125,5 +153,9 @@ $min-distance: 150px;
     color: red;
     background-color: white;
     padding: 1rem;
-    font-family: "DosisExtraBold";
+
+    .errorTitle {
+        font-size: 1.25rem;
+        font-family: "DosisExtraBold";
+    }
 }

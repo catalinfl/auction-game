@@ -4,7 +4,7 @@ import { verifyToken } from "../utils/verifyToken";
 const router = Router();
 
 router.get('/', verifyToken, (req: Request, res: Response) => {
-    res.json({ "message": "works" })
+    return res.status(200).json({ "message": "works" })
 })
 
 export default router;

@@ -8,30 +8,36 @@ import jwt from "jsonwebtoken";
 router.post('/', async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
-        res.status(400).json({"Error: ": "Please fill in all fields"})
+        return res.status(400).json({"Error: ": "Please fill in all fields"})
     }
     else {
         try {
             const user = await User.findOne({ username: username });
             if (!user) {
-                res.status(400).json({"Error: ": "User doesn't exist"})
+                return res.status(400).json({"Error: ": "User doesn't exist"})
             }
             else {
                 const passwordMatch = await bcrypt.compare(password, user.password);
                 if (!passwordMatch) {
-                    res.status(404).json({ "Error": "incorrect password"});
+                    return res.status(400).json({ "Error: ": "incorrect password"});
                 }
                 const token = jwt.sign({ username: user.username }, process.env.TOKEN_SECRET as string, {
                     expiresIn: "1d"
                 });
-                res.cookie("authorization", token, { httpOnly: true, sameSite: "none", expires: new Date(Date.now() + 86400000) });
-                res.status(200).json({ "Success": "Logged in" });
+                res.cookie("authorization", token, { httpOnly: true,
+                    sameSite: 'strict', expires: new Date(Date.now() + 86400000) });
+                return res.status(200).json({ "Success": "Logged in" });
             }                
         }
         catch(err) {
-            res.status(404).json(err);
+            res.status(404).json({ "Error: ": "Something went wrong" })
         }
     }
+})
+
+router.post('/logout', async (req: Request, res: Response) => {
+    res.clearCookie("authorization");
+    res.status(200).json({ "Success": "Logged out" });
 })
 
 export default router;
