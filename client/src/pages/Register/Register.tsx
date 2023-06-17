@@ -1,14 +1,17 @@
 import './__register.scss';
 import { Input } from 'baseui/input';
 import { Button } from 'baseui/button';
-import { ThemeProvider, useStyletron } from 'baseui/styles';
+import { ThemeProvider } from 'baseui/styles';
 import Image from '../../assets/photos/img.png'
 import Image2 from '../../assets/photos/chest.svg'
-import { LightTheme } from 'baseui';
+import { DarkTheme, LightTheme } from 'baseui';
 import Cloud1 from '../../assets/photos/icons8-cloud.svg'
 import { ChangeEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import Moon from '../../assets/photos/moon.png'
 
 type SendRegisterType = {
   username: string,
@@ -24,8 +27,6 @@ export type ErrorType = {
 }
 
 const Register = () => {
-
-  const [css] = useStyletron();
 
   const [sendRegister, setSendRegister] = useState<SendRegisterType>({
     username: '',
@@ -102,13 +103,23 @@ const Register = () => {
     }
   }
 
+  const theme = useSelector((state: RootState) => state.themeSlice.theme);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    }
+    else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme])
+
+
   return (
-    <ThemeProvider theme={LightTheme}>
-    <div className="register">
+    <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
+    <div className="register"> 
         <div className="register__container">
-            <h1 className={css({
-              marginBottom: '1rem'
-            })}>
+            <h1 style={{marginBottom: "1rem"}}>
               Create an account
             </h1>
             <form className="register__container__form">
@@ -127,7 +138,6 @@ const Register = () => {
                     BaseButton: {
                       style: ({ $theme }) => ({
                         fontFamily: 'DosisBold',
-                        backgroundColor: $theme.colors.primary700,
                         width: '100%',
                         ':hover': {
                           backgroundColor: $theme.colors.primary,
@@ -152,7 +162,12 @@ const Register = () => {
         </div>
     </div>
     
-    {/* clouds */}
+    {/* clouds or moon */}
+    {
+      theme === "dark" ?
+      <img className="cloud" src={Moon} alt="cloud" />
+      :
+      <> 
     <img className="cloud" src={Cloud1} alt="cloud" />
     <img className="cloud" src={Cloud1} alt="cloud" />
     <img className="cloud" src={Cloud1} alt="cloud" />
@@ -160,6 +175,8 @@ const Register = () => {
     <img className="cloud" src={Cloud1} alt="cloud" />
     <img className="cloud" src={Cloud1} alt="cloud" />
     <img className="cloud" src={Cloud1} alt="cloud" />
+    </>
+    }
     </ThemeProvider>
   )
 }

@@ -1,23 +1,28 @@
 import { Button } from "baseui/button"
-import axios from "axios"
-import { useEffect } from "react"
-
+import { useSelector, useDispatch } from "react-redux"
+import { DarkTheme, LightTheme, ThemeProvider } from "baseui";
+import Navbar from "./components/Navbar/Navbar";
+import { RootState } from "./redux/store";
 
 function App() {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('http://localhost:3000/api/tiomka', {
-        withCredentials: true,
-      })
-      console.log(result);
+  const dispatch = useDispatch();
+  const theme: "light" | "dark" = useSelector((state: RootState) => state.themeSlice.theme);
+
+  const changeColour = () => {
+    if (theme === "light") {
+      dispatch({ type: "theme/changeTheme", payload: "dark" })
     }
-    fetchData();
-  }, [])
+    else dispatch({ type: "theme/changeTheme", payload: "light"})
+  }
 
   return (
     <>
-      <Button > Click </Button>
+      <Navbar />
+      <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
+      <Button onClick={() => changeColour()}> Click </Button>
+      <p> {theme} </p>
+      </ThemeProvider>
     </>
   )
 }

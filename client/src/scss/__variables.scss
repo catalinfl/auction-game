@@ -3,6 +3,18 @@ $medium: 768px;
 $large: 992px;
 $extra-large: 1200px;
 
+body {
+    background-color: rgb(156, 208, 220);
+}
+
+.dark {
+    background-color: rgb(31, 60, 69);
+}
+
+.darkParagraph {
+    color: white;
+}
+
 @mixin sm {
     @media screen and (max-width: $small) {
         @content;

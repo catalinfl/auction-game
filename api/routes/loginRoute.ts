@@ -26,7 +26,7 @@ router.post('/', async (req: Request, res: Response) => {
                 });
                 res.cookie("authorization", token, { httpOnly: true,
                     sameSite: 'strict', expires: new Date(Date.now() + 86400000) });
-                return res.status(200).json({ "Success": "Logged in" });
+                return res.status(200).json(user);
             }                
         }
         catch(err) {

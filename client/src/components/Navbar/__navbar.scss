@@ -1,0 +1,88 @@
+@import '../../scss/_variables.scss';
+
+@mixin Button {
+    padding: 10px;
+    font-family: DosisExtraBold;
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    
+    .navbarContainer {
+        padding: 1rem;
+        max-width: 1280px;
+        width: 100%;
+        display: flex;
+        border-radius: 0.5rem;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 1rem;
+        font-family: DosisExtraBold;
+    }
+
+    .navbarButtons {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        @include sm {
+            gap: 0;
+        }
+
+        .buttonItemContainer {
+            .buttonItem {
+                @include Button();
+             
+                .icon {
+                    color: inherit;
+                    font-size: 1.25rem;
+                }
+            }
+        }
+    }
+
+    .infoContainer {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-family: DosisExtraBold;
+        flex-direction: row;
+        gap: 5rem;
+
+        .coinContainer {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+
+            .coinImage {
+                width: 1.75rem;
+                flex-direction: row;
+                display: flex;
+            }
+        }
+
+        .userContainer {
+            display: flex;
+            font-family: DosisRegular;
+            gap: 1rem;
+
+        }
+        .buttonItem {
+            @include Button();
+            background-color: rgb(192, 254, 255);
+        }
+    }
+}
+

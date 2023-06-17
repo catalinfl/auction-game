@@ -4,7 +4,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import registerRoute from "./routes/registerRoute"
 import loginRoute from "./routes/loginRoute"
-import tiomkaRoute from "./routes/tiomka"
+import homeRoute from "./routes/homeRoute"
 import cookieParser from "cookie-parser"
 
 dotenv.config();
@@ -22,8 +22,8 @@ app.use('/api/register', registerRoute);
 // Login Route
 app.use('/api/login', loginRoute);
 
-// Tiomka Route 
-app.use('/api/tiomka', tiomkaRoute);
+//
+// app.use('/api/home', homeRoute);
 
 
 const URL = process.env.MONGO_URL as string;
