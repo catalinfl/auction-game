@@ -16,9 +16,12 @@ function App() {
     else dispatch({ type: "theme/changeTheme", payload: "light"})
   }
 
+
   return (
     <>
+      <div className="allNav"> 
       <Navbar />
+      </div>
       <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
       <Button onClick={() => changeColour()}> Click </Button>
       <p> {theme} </p>

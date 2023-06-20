@@ -76,6 +76,7 @@ const Login = () => {
     catch(err: any) {
       console.log(err)
       const error = JSON.stringify(err?.response?.data['Error: ']).replace(/"/g, '');
+      dispatch({ type: "auth/disconnect", payload: {} })
       setError(error)
     }
   }
@@ -85,6 +86,7 @@ const Login = () => {
       setError(false);
     } 
   }, [sendLogin])
+
 
   const theme = useSelector((state: RootState) => state.themeSlice.theme)
 

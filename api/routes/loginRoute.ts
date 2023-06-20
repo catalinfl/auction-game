@@ -24,8 +24,14 @@ router.post('/', async (req: Request, res: Response) => {
                 const token = jwt.sign({ username: user.username }, process.env.TOKEN_SECRET as string, {
                     expiresIn: "1d"
                 });
-                res.cookie("authorization", token, { httpOnly: true,
-                    sameSite: 'strict', expires: new Date(Date.now() + 86400000) });
+                res.cookie("isLoggedIn", "logged", {
+                    httpOnly: false,
+                    sameSite: 'strict',
+                    expires: new Date(Date.now() + 86400000) })
+                res.cookie("authorization", token, {
+                    httpOnly: true,
+                    sameSite: 'strict', 
+                    expires: new Date(Date.now() + 86400000) });
                 return res.status(200).json(user);
             }                
         }

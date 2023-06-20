@@ -7,9 +7,9 @@ import { GiOpenChest } from 'react-icons/gi';
 import { RiAuctionLine } from 'react-icons/ri';
 import Coin from "../../assets/photos/icons8-coin.svg"
 import { Link } from 'react-router-dom';
-import { removeCookie } from '../../utils/removeCookie';
 import { UserStateType } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import removeCookie from '../../utils/removeCookie';
 
 type CSSType = {
     backgroundColor: string
@@ -39,6 +39,9 @@ const Navbar = () => {
         }
     }
 
+    const isAuth = useSelector((state: RootState) => state.authSlice.connected);
+
+
     useEffect(() => {
         if (theme === "dark") {
             document.body.classList.add("dark");
@@ -57,10 +60,9 @@ const Navbar = () => {
     }, [theme])
 
 
-
     const logOut = () => {
         if (user.connected === true) {
-            removeCookie("authorization");
+            removeCookie("isLoggedIn");
             dispatch({ type: "auth/disconnect", payload: { connected: false } })
             navigate('/login');
         }
@@ -68,9 +70,12 @@ const Navbar = () => {
 
       useEffect(() => {
         if (user.connected === false || user.connected === undefined) {
-            navigate('/login');
+            setTimeout(() => {
+                navigate('/login');
+            }, 30000)
         }
       }, [user])
+
 
     return (
     <div className="navbar">
@@ -104,6 +109,8 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="infoContainer">
+                { 
+                isAuth ? 
                 <div className="userContainer"
                 style={{
                     color: theme === "light" ? "black" : "white",
@@ -112,21 +119,28 @@ const Navbar = () => {
                     borderRadius: '5px'
                 }}
                 >
+                    <> 
                     <p> {user.username} </p>
                     <p> Level {user.level} </p>
                     <p> XP: {user.xp} </p>
+                    </>  
                 </div>
+                    : null
+                }
                 <button className="buttonItem"
                 style={{
                     color: theme === "light" ? "black" : "white",
                     backgroundColor: theme === "dark" ? "#1d6c8c" : "#6fd6e8"
                 }}
                 onClick={() => logOut()}
-                > Logout </button>
-                <div className="coinContainer"> 
+                > { isAuth ? "Logout" : "Login"} </button>
+
+                {isAuth ?
+                 <div className="coinContainer"> 
                 <p> Coins: {user.money} </p>
                 <img className="coinImage" src={Coin} />
-                </div>
+                </div> 
+                : null}
             </div>
         </div>
     </div>
