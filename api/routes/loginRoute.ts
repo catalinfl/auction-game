@@ -41,9 +41,4 @@ router.post('/', async (req: Request, res: Response) => {
     }
 })
 
-router.post('/logout', async (req: Request, res: Response) => {
-    res.clearCookie("authorization");
-    res.status(200).json({ "Success": "Logged out" });
-})
-
 export default router;

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { UserStateType } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import removeCookie from '../../utils/removeCookie';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 type CSSType = {
     backgroundColor: string
@@ -34,13 +35,14 @@ const Navbar = () => {
             }
         }
         else return {
-            backgroundColor: "#000000",
+            backgroundColor: "#474242",
             color: "white"
         }
     }
 
-    const isAuth = useSelector((state: RootState) => state.authSlice.connected);
 
+
+    const isAuth = useSelector((state: RootState) => state.authSlice.connected);
 
     useEffect(() => {
         if (theme === "dark") {
@@ -60,10 +62,15 @@ const Navbar = () => {
     }, [theme])
 
 
-    const logOut = () => {
-        if (user.connected === true) {
-            removeCookie("isLoggedIn");
-            dispatch({ type: "auth/disconnect", payload: { connected: false } })
+    const logOut = (isAuth: boolean) => {
+        if (isAuth) {
+            if (user.connected === true) {
+                removeCookie("isLoggedIn");
+                dispatch({ type: "auth/disconnect", payload: { connected: false } })
+                navigate('/login');
+            }
+        }
+        else {
             navigate('/login');
         }
       }
@@ -107,6 +114,9 @@ const Navbar = () => {
                     }}> MY CONTAINERS <GiOpenChest className="icon"/> </button>
                     </Link>
                 </div>
+                <div className="buttonItemContainer">
+                    <GiHamburgerMenu className="hamburger" />
+                </div>
             </div>
             <div className="infoContainer">
                 { 
@@ -132,9 +142,8 @@ const Navbar = () => {
                     color: theme === "light" ? "black" : "white",
                     backgroundColor: theme === "dark" ? "#1d6c8c" : "#6fd6e8"
                 }}
-                onClick={() => logOut()}
+                onClick={() => logOut(isAuth)}
                 > { isAuth ? "Logout" : "Login"} </button>
-
                 {isAuth ?
                  <div className="coinContainer"> 
                 <p> Coins: {user.money} </p>

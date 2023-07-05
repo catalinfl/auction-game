@@ -22,6 +22,8 @@
     "react-icons": "^4.9.0",
     "react-redux": "^8.1.0",
     "react-router-dom": "^6.12.1",
+    "react-switch": "^7.0.0",
+    "react-toggle-dark-mode": "^1.1.1",
     "redux-persist": "^6.0.0",
     "sass": "^1.63.3",
     "styletron-engine-atomic": "^1.5.0",

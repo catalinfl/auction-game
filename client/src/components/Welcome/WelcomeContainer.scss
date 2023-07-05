@@ -1,8 +1,7 @@
 @import '../../scss/_variables.scss';
 
-
-.themeButton {
+.welcomeContainer {
     @include containerProps;
-    display: flex;
-    flex: 1;
+    flex-direction: column;
+    flex: 2;    
 }

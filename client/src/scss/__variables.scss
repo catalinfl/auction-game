@@ -3,6 +3,30 @@ $medium: 768px;
 $large: 992px;
 $extra-large: 1200px;
 
+$containerColor: rgb(192, 254, 255);
+
+@font-face {
+    font-family: DosisRegular;
+    src: url("../../src/assets/fonts/Dosis-Regular.ttf")
+}
+
+@font-face {
+    font-family: DosisBold;
+    src: url("../../src/assets/fonts/Dosis-Bold.ttf")
+}
+
+@font-face {
+    font-family: DosisExtraBold;
+    src: url("../../src/assets/fonts/Dosis-ExtraBold.ttf")
+}
+
+@font-face {
+    font-family: DosisMedium;
+    src: url("../../src/assets/fonts/Dosis-Medium.ttf")
+}
+
+
+
 body {
     background-color: rgb(156, 208, 220);
 }
@@ -39,25 +63,17 @@ body {
     }
 }
 
-@font-face {
-    font-family: DosisRegular;
-    src: url("../../src/assets/fonts/Dosis-Regular.ttf")
-}
 
-@font-face {
+@mixin containerProps {
+    display: flex;
+    background-color: $containerColor;
+    box-shadow: 0px -3px 10px 1px rgba(84, 159, 165, 0.75);
+    padding: 1rem;
+    height: 300px;
     font-family: DosisBold;
-    src: url("../../src/assets/fonts/Dosis-Bold.ttf")
+    border-radius: 15px;
 }
 
-@font-face {
-    font-family: DosisExtraBold;
-    src: url("../../src/assets/fonts/Dosis-ExtraBold.ttf")
-}
-
-@font-face {
-    font-family: DosisMedium;
-    src: url("../../src/assets/fonts/Dosis-Medium.ttf")
-}
 
 * {
     box-sizing: border-box;

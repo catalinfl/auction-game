@@ -15,17 +15,31 @@
 .navbar {
     display: flex;
     justify-content: center;
+    margin: 0 auto;
     margin-top: 0.5rem;
+    max-width: 1280px;
+    width: 100%;
     
+
     .navbarContainer {
         padding: 1rem;
-        max-width: 1280px;
         width: 100%;
         display: flex;
         border-radius: 0.5rem;
         flex-direction: row;
         justify-content: space-between;
+        
+        @include sm {
+            justify-content: center;
+            align-items: center;
+        }
+
+        @include md {
+            justify-content: center;
+            align-items: center;    
+        }
     }
+    
 
     .logo {
         font-size: 1rem;
@@ -37,19 +51,50 @@
         flex-direction: row;
         gap: 1rem;
 
+
         @include sm {
             gap: 0;
         }
 
         .buttonItemContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .buttonItem {
                 @include Button();
-             
+                
                 .icon {
                     color: inherit;
                     font-size: 1.25rem;
                 }
             }
+
+
+            .hamburger {
+                display: none;
+                
+                @include sm {
+                    display: flex;
+                    color: grey;
+                    font-size: 1.5rem;
+                    margin-left: 1rem;
+                }
+                
+                @include md {
+                    display: flex;
+                    color: grey;
+                    font-size: 1.5rem;
+                    margin-left: 1rem;
+                }
+            }
+
+
+        }
+    }
+    
+    @include sm {
+        .buttonItemContainer:nth-child(3) {
+            display: none;
         }
     }
 
@@ -60,6 +105,14 @@
         font-family: DosisExtraBold;
         flex-direction: row;
         gap: 5rem;
+        
+        @include sm {
+            display: none;
+        }
+
+        @include md {
+            display: none;
+        }
 
         .coinContainer {
             display: flex;
@@ -76,7 +129,11 @@
         .userContainer {
             display: flex;
             font-family: DosisRegular;
-            gap: 1rem;
+            gap: 2rem;
+            
+            @include md {
+                display: none;
+            }
 
         }
         .buttonItem {
@@ -86,3 +143,14 @@
     }
 }
 
+.allNav {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    .buttonSwitch {
+        margin-top: 0.3rem;
+    }
+}

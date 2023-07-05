@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Moon from '../../assets/photos/moon.png'
+import getCookie from '../../utils/getCookie';
 
 type SendRegisterType = {
   username: string,
@@ -38,6 +39,10 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<CustomError>(false);
   const [redirecting, setRedirecting] = useState<boolean>(false);
+  const loggedCookie = getCookie("isLoggedIn");
+  if (loggedCookie === "logged") {
+    window.location.href = '/'
+  }
 
   const changeForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, type: keyof SendRegisterType) => {
     e.preventDefault();
@@ -182,7 +187,6 @@ const Register = () => {
 }
 
 export function Error({ error }: ErrorType): JSX.Element {
-  
   return (
     <div className="error">  
       <p className="errorTitle"> Error: {error} </p>

@@ -10,22 +10,22 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    themeSlice: persistReducer(persistConfig, themeSlice),
-    authSlice: persistReducer(persistConfig, authSlice)
+    themeSlice, authSlice
 })
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
     }),
 });
 
-
-
-
 export default store;
 
 export const persistor = persistStore(store);
+
+
 
 export type RootState = ReturnType<typeof store.getState>;

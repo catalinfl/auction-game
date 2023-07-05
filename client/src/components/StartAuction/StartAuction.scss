@@ -1,8 +1,6 @@
 @import '../../scss/_variables.scss';
 
-
-.themeButton {
+.startAuction {
     @include containerProps;
-    display: flex;
-    flex: 1;
+    flex: 3;
 }

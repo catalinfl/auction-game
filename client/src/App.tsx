@@ -1,32 +1,35 @@
-import { Button } from "baseui/button"
 import { useSelector, useDispatch } from "react-redux"
+import './App.scss'
 import { DarkTheme, LightTheme, ThemeProvider } from "baseui";
 import Navbar from "./components/Navbar/Navbar";
 import { RootState } from "./redux/store";
+import WelcomeContainer from "./components/Welcome/WelcomeContainer";
+import SeeContainers from "./components/SeeContainers/SeeContainers";
+import ThemeButton from "./components/ThemeButton/ThemeButton";
+import StartAuction from "./components/StartAuction/StartAuction";
+import { useState } from "react";
 
 function App() {
 
-  const dispatch = useDispatch();
   const theme: "light" | "dark" = useSelector((state: RootState) => state.themeSlice.theme);
 
-  const changeColour = () => {
-    if (theme === "light") {
-      dispatch({ type: "theme/changeTheme", payload: "dark" })
-    }
-    else dispatch({ type: "theme/changeTheme", payload: "light"})
-  }
 
+  const [themed, setThemed] = useState<"light" | "dark">(theme);
 
   return (
-    <>
-      <div className="allNav"> 
-      <Navbar />
+    <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme }> 
+    <Navbar />
+    <div className="principal">
+      <div className="principal-flex">
+        <WelcomeContainer theme={themed}/>
+        <SeeContainers theme={themed}/>
       </div>
-      <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
-      <Button onClick={() => changeColour()}> Click </Button>
-      <p> {theme} </p>
-      </ThemeProvider>
-    </>
+      <div className="secondary-flex">
+        <ThemeButton theme={themed}/>
+        <StartAuction theme={themed}/>
+      </div>
+    </div>
+    </ThemeProvider>
   )
 }
 

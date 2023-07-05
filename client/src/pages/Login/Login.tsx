@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Moon from '../../assets/photos/moon.png'
+import getCookie from '../../utils/getCookie'
 
 
 type SendLoginType = {
@@ -22,6 +23,11 @@ type SendLoginType = {
 const Login = () => {
 
   const dispatch = useDispatch();
+
+  const loggedCookie = getCookie("isLoggedIn");
+  if (loggedCookie === "logged") {
+    window.location.href = '/'
+  }
 
   const [error, setError] = useState<CustomError>(false);
 

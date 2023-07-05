@@ -1,8 +1,6 @@
 @import '../../scss/_variables.scss';
 
-
-.themeButton {
+.seeContainer {
     @include containerProps;
-    display: flex;
     flex: 1;
 }
