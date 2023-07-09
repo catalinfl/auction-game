@@ -1,5 +1,5 @@
 import './SeeContainers.scss'
-import styled, { blockStyle } from '../../utils/setDark'
+import { blockStyle } from '../../utils/setDark'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 

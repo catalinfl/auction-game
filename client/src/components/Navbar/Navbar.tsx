@@ -6,11 +6,12 @@ import { AiOutlineHome } from 'react-icons/ai';
 import { GiOpenChest } from 'react-icons/gi';
 import { RiAuctionLine } from 'react-icons/ri';
 import Coin from "../../assets/photos/icons8-coin.svg"
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { UserStateType } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import removeCookie from '../../utils/removeCookie';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import getCookie from '../../utils/getCookie';
 
 type CSSType = {
     backgroundColor: string
@@ -61,6 +62,12 @@ const Navbar = () => {
         }
     }, [theme])
 
+    useEffect(() => {
+        const cookie = getCookie("isLoggedIn");
+        if (cookie === null) {
+            redirect("/login");
+        }
+    }, [])
 
     const logOut = (isAuth: boolean) => {
         if (isAuth) {
