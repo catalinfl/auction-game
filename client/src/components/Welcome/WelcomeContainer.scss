@@ -3,5 +3,42 @@
 .welcomeContainer {
     @include containerProps;
     flex-direction: column;
-    flex: 2;    
+    flex: 2; 
+
+    .welcomeMessageText {
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .welcomeInfoContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 1.25rem;
+    }
+    
+    .welcomeInfoImage {
+        display: flex;
+        width: 2rem;    
+    }
+
+    .levelContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.25rem;
+        width: 500px;
+        margin: 2rem auto;
+
+        @include sm {
+            width: 300px;
+        }
+
+        @include md {
+            width: 400px;
+        }
+    }
 }

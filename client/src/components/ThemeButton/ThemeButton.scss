@@ -4,5 +4,32 @@
 .themeButton {
     @include containerProps;
     display: flex;
+    flex-direction: column;
     flex: 1;
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.themeInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .themeText {
+        font-size: 1.25rem;
+    }
+    
+    .switch {
+        margin: 1rem 0rem;
+    }
+    
+    .themeImage {
+        width: 150px;
+        transition: 1s ease-in-out;
+    }   
 }

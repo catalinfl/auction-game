@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import express, { Router, Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import bcrypt from "bcrypt"
 import User from "../models/UserSchema";
 const router = Router();

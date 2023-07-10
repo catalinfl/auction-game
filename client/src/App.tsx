@@ -21,12 +21,12 @@ function App() {
     <Navbar />
     <div className="principal">
       <div className="principal-flex">
-        <WelcomeContainer theme={themed}/>
-        <SeeContainers theme={themed}/>
+        <WelcomeContainer />
+        <SeeContainers />
       </div>
       <div className="secondary-flex">
-        <ThemeButton theme={themed}/>
-        <StartAuction theme={themed}/>
+        <ThemeButton/>
+        <StartAuction />
       </div>
     </div>
     </ThemeProvider>
