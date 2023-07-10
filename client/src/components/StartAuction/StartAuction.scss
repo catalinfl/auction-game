@@ -3,4 +3,52 @@
 .startAuction {
     @include containerProps;
     flex: 3;
+    position: relative;
+    border: dotted 2px rgb(92, 56, 2);
+
+    .auctionImage {
+        width: 120px;
+        height: 100px;
+        position: absolute;
+        bottom: 1rem;
+        right: 2rem;
+    }
+
+    .auctionContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .buttonContainer {
+        display: flex;
+        flex: 2;
+        align-items: center;
+        justify-content: center;
+
+        .startAuctionButton {
+            display: flex;
+            padding: 2rem;
+            background-color: transparent;
+            border: rgb(92, 56, 2) 0.25rem solid;
+            outline: none;
+            font-size: 1.5rem;
+            font-family: DosisExtraBold;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.5s ease-in-out;
+
+            &:hover {
+                background-color: rgb(92, 56, 2);
+            }
+        }
+    }
+
+    .startAuctionText {
+        font-size: 1.25rem;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+    }
 }

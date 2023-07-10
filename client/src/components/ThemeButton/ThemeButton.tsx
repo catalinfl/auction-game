@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Switch from "react-switch";
 import './ThemeButton.scss'
 import { RootState } from "../../redux/store";
@@ -28,12 +28,11 @@ const ThemeButton = () => {
 
   const imgRef = useRef<HTMLImageElement | null>(null);
 
-  const onClickFunc = () => {
-    if (theme === "light") {
-      imgRef.current?.classList.add("rotate")
-    }
-    else imgRef.current?.classList.remove("rotate")
-  }
+  const [rotate, setRotate] = useState("0deg");
+
+  useEffect(() => {
+    setRotate("-45deg")
+  }, [])
 
   return (
     <div className="themeButton" style={blockStyle(theme)}>
@@ -45,7 +44,10 @@ const ThemeButton = () => {
           checked={theme === "light" ? false : true}
         />
       </div>
-      <img ref={imgRef} className="themeImage" src={DayNight}
+      <img ref={imgRef} 
+      style={theme === "dark" ? {rotate: rotate} : {rotate: rotate} }
+      className="themeImage" src={DayNight}
+      onClick={() => changeColour()}
       />
     </div>
     </div>

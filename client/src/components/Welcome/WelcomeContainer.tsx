@@ -38,7 +38,7 @@ const WelcomeContainer = () => {
             }}
           value={Math.floor(userState.xp/maxXP * 100)}
           />
-          <p className="xpInfo"> {userState.xp}/{maxXP}</p>
+          <p className="xpInfo"> {userState.xp}/{maxXP} XP</p>
         </div>
         </>
         :
