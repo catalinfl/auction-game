@@ -3,6 +3,7 @@
 .startAuction {
     @include containerProps;
     flex: 3;
+    padding: 2rem;
     position: relative;
     border: dotted 2px rgb(92, 56, 2);
 
@@ -12,6 +13,11 @@
         position: absolute;
         bottom: 1rem;
         right: 2rem;
+
+        @include little {
+            width: 100px;
+            height: 80px;
+        }
     }
 
     .auctionContainer {
@@ -25,6 +31,7 @@
         flex: 2;
         align-items: center;
         justify-content: center;
+        z-index: 2;
 
         .startAuctionButton {
             display: flex;
@@ -47,6 +54,7 @@
     .startAuctionText {
         font-size: 1.25rem;
         display: flex;
+        margin: 1rem 0rem;
         flex: 1;
         align-items: center;
         justify-content: center;

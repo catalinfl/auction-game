@@ -1,7 +1,9 @@
+$little: 290px;
 $small: 576px;
 $medium: 768px;
 $large: 992px;
 $extra-large: 1200px;
+
 
 $containerColor: rgb(192, 254, 255);
 
@@ -39,8 +41,14 @@ body {
     color: white;
 }
 
+@mixin little {
+    @media screen and (max-width: $little) {
+        @content;
+    }
+}
+
 @mixin sm {
-    @media screen and (max-width: $small) {
+    @media screen and (min-width: $little) and (max-width: $small) {
         @content;
     }
 }

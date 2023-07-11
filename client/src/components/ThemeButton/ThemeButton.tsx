@@ -1,9 +1,9 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Switch from "react-switch";
 import './ThemeButton.scss'
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import styled, { blockStyle } from "../../utils/setDark";
+import { blockStyle } from "../../utils/setDark";
 import DayNight from "../../assets/photos/day-and-night-icon.svg"
 
 const ThemeButton = () => {
@@ -30,8 +30,17 @@ const ThemeButton = () => {
 
   const [rotate, setRotate] = useState("0deg");
 
+  const rotateFunc = () => {
+    if (theme == "light") {
+      setRotate("-45deg")
+    }
+    else {
+      setRotate("134deg")
+    }
+  }
+
   useEffect(() => {
-    setRotate("-45deg")
+    rotateFunc();
   }, [])
 
   return (
@@ -45,7 +54,7 @@ const ThemeButton = () => {
         />
       </div>
       <img ref={imgRef} 
-      style={theme === "dark" ? {rotate: rotate} : {rotate: rotate} }
+      style={{rotate: rotate}}
       className="themeImage" src={DayNight}
       onClick={() => changeColour()}
       />

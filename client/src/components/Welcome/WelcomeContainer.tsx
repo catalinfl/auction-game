@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import './WelcomeContainer.scss'
 import { RootState } from '../../redux/store';
 import { useState } from 'react';
-import styled, { blockStyle } from '../../utils/setDark';
+import { blockStyle } from '../../utils/setDark';
 import { UserStateType } from '../../redux/slices/authSlice';
 import CoinWelcome from "../../assets/photos/icons8-coin-96.png"
 import { ProgressBar } from "baseui/progress-bar"
@@ -10,7 +10,7 @@ import { ProgressBar } from "baseui/progress-bar"
 
 const WelcomeContainer = () => {
   const user = useSelector((state: RootState) => state.authSlice);
-  const [userState, setUserState] = useState<UserStateType>(user);
+  const [userState] = useState<UserStateType>(user);
   const theme = useSelector((state: RootState) => state.themeSlice.theme);
   
   const maxXP = userState.level <= 10 ? 1000 * userState.level : 2000 * userState.level;
@@ -31,7 +31,7 @@ const WelcomeContainer = () => {
           <ProgressBar
             overrides={{
               BarProgress: {
-                style: ({$theme}) => ({
+                style: ({}) => ({
                   backgroundColor: theme === "dark" ? "white" : "rgb(12, 130, 157)"
                 }),
               },
