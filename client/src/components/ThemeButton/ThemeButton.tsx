@@ -35,12 +35,15 @@ const ThemeButton = () => {
       setRotate("-45deg")
     }
     else {
-      setRotate("134deg")
+      setRotate("100deg")
     }
   }
 
   useEffect(() => {
     rotateFunc();
+    if (theme === "dark") {
+      setRotate("0deg");
+    }
   }, [])
 
   return (

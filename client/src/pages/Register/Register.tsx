@@ -103,7 +103,7 @@ const Register = () => {
         await axios.post('http://localhost:3000/api/register', sendRegister)
         .then(() => setRedirecting(true))
       } catch (error: any) {
-        setError(error.response.data.message);
+        setError(error.response?.data?.message);
       }
     }
   }

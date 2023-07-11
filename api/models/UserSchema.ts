@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
+import CrateSchema, { CrateInterface } from "./CrateSchema";
 
 export interface UserInterface {
-    _id?: string,
+    _id: string,
     username: string,
     password: string,
     email: string,
-    level?: number,
-    money?: number,
-    xp?: number,
-    crates?: number,
-    cratesOpened?: number,
-    premium?: string,
-    admin?: boolean
+    level: number,
+    money: number,
+    xp: number,
+    crates: Array<CrateInterface["_id"]>,
+    cratesOpened: number,
+    premium: string,
+    admin: boolean
 }
 
 const userSchema = new mongoose.Schema<UserInterface>({
@@ -51,8 +52,8 @@ const userSchema = new mongoose.Schema<UserInterface>({
         required: false,
     },
     crates: {
-        type: Number,
-        default: 0,
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Crate" }],
+        default: [],
         required: false,
     },
     cratesOpened: {

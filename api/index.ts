@@ -6,6 +6,7 @@ import registerRoute from "./routes/registerRoute"
 import loginRoute from "./routes/loginRoute"
 import homeRoute from "./routes/homeRoute"
 import cookieParser from "cookie-parser"
+import crateRoute from "./routes/crateRoute"
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ app.use('/api/register', registerRoute);
 app.use('/api/login', loginRoute);
 
 //
-// app.use('/api/home', homeRoute);
+app.use('/api/crates', crateRoute);
 
 
 const URL = process.env.MONGO_URL as string;

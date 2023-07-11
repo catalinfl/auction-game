@@ -12,6 +12,8 @@ const SeeContainers = () => {
   const theme = useSelector((state: RootState) => state.themeSlice.theme);
   
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const crates = useSelector((state: RootState) => state.authSlice.crates);
+
 
   useEffect(() => {
     if (imageRef.current !== null) {
@@ -39,6 +41,7 @@ const SeeContainers = () => {
     <div className="seeContainer"
     style={blockStyle(theme)}
     >
+      <p className="seeContainerText"> You have {crates.length} crates </p>
       <p className="seeContainerText"> See all the containers you bought from auctions </p>
       <div className="containerforContImg">
       <Link style={{ textDecoration: 'none' }} to="/containers">

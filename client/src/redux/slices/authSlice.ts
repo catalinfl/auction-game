@@ -1,20 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface Crate {
+    _id: string,
+    bought: Date,
+    rarity: string,
+    cost: number,
+    tier: string,
+    owner: string
+}
+
 export type UserStateType = {
     connected: boolean,
     username: string,
     level: number,
     xp: number,
     money: number,
+    crates: Array<Crate>,
+    cratesOpened: number,
+    premium: string,
+    admin: boolean,
     _id: string
 }
 
 const initialState: UserStateType = {
     connected: false,
     username: "",
-    level: 0,
-    xp: 0, 
-    money: 0,
+    level: -1,
+    xp: -1,   
+    crates: [],
+    cratesOpened: -1,
+    premium: "",
+    admin: false,
+    money: -1,
     _id: ""
 }
 
@@ -29,6 +46,10 @@ export const authSlice = createSlice({
             state.xp = action.payload.xp,
             state.money = action.payload.money,
             state._id = action.payload._id
+            state.crates = action.payload.crates; 
+            state.cratesOpened = action.payload.cratesOpened;
+            state.premium = action.payload.premium;
+            state.admin = action.payload.admin;
         },
         changeXP: (state, action) => {
             state.xp += action.payload;

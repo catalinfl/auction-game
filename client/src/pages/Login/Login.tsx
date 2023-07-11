@@ -75,7 +75,12 @@ const Login = () => {
                  xp: res.data.xp,
                  _id: res.data._id,
                  level: res.data.level,
-                 money: res.data.money }}
+                 admin: res.data.admin,                  
+                 money: res.data.money,
+                 premium: res.data.premium,
+                 crates: res.data.crates,
+                 cratesOpened: res.data.cratesOpened,
+                }}
                 )})
       .then(() => setRedirecting(true));
     }
