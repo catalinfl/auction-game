@@ -37,11 +37,13 @@ const SeeContainers = () => {
   }, [])
 
 
+
+
   return (
     <div className="seeContainer"
     style={blockStyle(theme)}
     >
-      <p className="seeContainerText"> You have {crates.length} crates </p>
+      <p className="seeContainerText"> You have {crates.length !== null || undefined ? crates.length : 0} crates </p>
       <p className="seeContainerText"> See all the containers you bought from auctions </p>
       <div className="containerforContImg">
       <Link style={{ textDecoration: 'none' }} to="/containers">

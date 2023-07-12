@@ -1,0 +1,83 @@
+@import "../../scss/_variables.scss";
+
+.container {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: 1rem;
+    flex-direction: column;
+
+    .infoContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-family: DosisBold;
+        padding: 2rem;
+        box-shadow: 5px 5px 10px 1px rgba(84, 159, 165, 0.75);
+    }
+
+    .chestContainer {
+        margin-top: 1rem;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 5px 5px 10px 1px rgba(84, 159, 165, 0.75);
+        
+        
+        @include little {
+            flex-direction: column;
+        }
+        
+        @include sm {
+            flex-direction: column;
+        }
+
+        @include md {
+            flex-direction: column;
+        }
+
+
+        .sliderContainer {
+            display: flex;
+            width: 50%;
+
+            @include little {
+                width: 100%;
+            }
+            
+            @include sm {
+                width: 100%;
+            }
+    
+            @include md {
+                width: 100%;
+            }
+        }
+
+        .rarityContainer {
+            display: flex;
+            width: 50%;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-family: DosisBold;
+
+            @include little {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            @include sm {
+                width: 100%;
+                margin-top: 1rem;
+            }
+    
+            @include md {
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+    }  
+}
