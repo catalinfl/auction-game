@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
+import { UserInterface } from "../models/UserSchema";
+import Crate from "../models/CrateSchema";
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.authorization;
@@ -14,3 +16,4 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
         res.status(400).json({ "message": "Invalid token" })    
     }
 }
+

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import User from "../models/UserSchema";
 const router = Router();
 import jwt from "jsonwebtoken";
+import Crate from "../models/CrateSchema";
 
 router.post('/', async (req: Request, res: Response) => {
     const { username, password } = req.body;
@@ -31,6 +32,20 @@ router.post('/', async (req: Request, res: Response) => {
                     httpOnly: true,
                     sameSite: 'strict', 
                     expires: new Date(Date.now() + 86400000) });
+                user.lastTimeConnected = new Date(Date.now());
+                if (user.lastTimeConnected.getDate() != new Date(Date.now()).getDate()) {
+                    const crate = await Crate.create({
+                        type: "Crate",
+                        rarity: "Common",
+                        cost: 0,
+                        tier: "1",
+                        owner: user._id
+                    })
+                    await crate.save();
+                    user.crates.push(crate);
+                }
+                user.lastChestReceived = new Date(Date.now());
+                user.save();
                 return res.status(200).json(user);
             }                
         }

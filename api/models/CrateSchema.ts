@@ -28,7 +28,7 @@ const crateSchema = new mongoose.Schema<CrateInterface>({
     tier: {
         type: String,
         required: true,
-        default: "tier1"
+        default: "1"
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,

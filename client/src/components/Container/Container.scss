@@ -16,7 +16,7 @@
         box-shadow: 5px 5px 10px 1px rgba(84, 159, 165, 0.75);
     }
 
-    .chestContainer {
+    .inputChestContainer {
         margin-top: 1rem;
         padding: 2rem 1rem;
         display: flex;
@@ -79,5 +79,68 @@
                 margin-top: 1rem;
             }
         }
+
     }  
+
+    .chestContainer {
+        box-shadow: 5px 5px 10px 1px rgba(84, 159, 165, 0.75);
+        padding: 1rem;
+        margin-top: 1rem;
+
+
+            .chestItems {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                max-width: 1280px;
+                gap: 1rem;
+    
+                .chestItem {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    flex-grow: 1;
+                    font-family: DosisBold;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    
+                    .chestImage {
+                        display: flex;
+                        justify-content: center;
+                        width: 150px;
+                        margin-bottom: 1rem;
+                    }
+
+                    .infoCost {
+                        display: flex;
+                        align-items: center;
+                        font-size: 0.85rem;
+                        gap: 3px;
+                    }
+
+                    .infoTier {
+                        font-size: 0.85rem;
+                    }
+
+                    .buttonChestContainer {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: row;
+                        gap: 1rem;
+                        margin-top: 1rem;
+
+                        .openButton {
+                            padding: 0.5rem;
+                            border-radius: 5px;
+                            outline: none;
+                            border: none;
+                            color: white;
+                            font-family: DosisBold;
+                            cursor: pointer;
+                        }
+                    }
+
+                }
+            }
+        }
 }

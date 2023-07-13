@@ -69,7 +69,7 @@ const Login = () => {
       await axios.post('http://localhost:3000/api/login', sendLogin, {
         withCredentials: true
       })
-      .then((res) => { console.log(res.data), dispatch({ type: "auth/login", 
+      .then((res) => { dispatch({ type: "auth/login", 
       payload: { connected: true, 
                  username: res.data.username, 
                  xp: res.data.xp,
@@ -80,6 +80,8 @@ const Login = () => {
                  premium: res.data.premium,
                  crates: res.data.crates,
                  cratesOpened: res.data.cratesOpened,
+                 lastChestReceived: res.data.lastChestReceived,
+                 lastChestOpened: res.data.lastChestOpened
                 }}
                 )})
       .then(() => setRedirecting(true));

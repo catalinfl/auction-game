@@ -12,7 +12,9 @@ export interface UserInterface {
     crates: Array<CrateInterface["_id"]>,
     cratesOpened: number,
     premium: string,
-    admin: boolean
+    admin: boolean,
+    lastChestReceived: Date,
+    lastTimeConnected: Date
 }
 
 const userSchema = new mongoose.Schema<UserInterface>({
@@ -69,6 +71,14 @@ const userSchema = new mongoose.Schema<UserInterface>({
     admin: {
         type: Boolean,
         default: false,
+        required: false
+    },
+    lastChestReceived: {
+        type: Date,
+        required: false
+    },
+    lastTimeConnected: {
+        type: Date,
         required: false
     }
 })

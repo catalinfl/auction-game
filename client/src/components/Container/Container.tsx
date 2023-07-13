@@ -2,6 +2,7 @@ import InfoContainer from "./InfoContainer"
 import './Container.scss';
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import InputChestContainer from "./InputChestContainer";
 import ChestContainer from "./ChestContainer";
 
 const Container = () => {
@@ -14,6 +15,7 @@ const Container = () => {
     <div className="container">
       <div className="containerContent">
         <InfoContainer theme={theme}/>
+        <InputChestContainer theme={theme} />
         <ChestContainer theme={theme} />
       </div>
     </div>    

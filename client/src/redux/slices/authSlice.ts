@@ -19,7 +19,9 @@ export type UserStateType = {
     cratesOpened: number,
     premium: string,
     admin: boolean,
-    _id: string
+    _id: string,
+    lastTimeConnected: Date,
+    lastChestReceived: Date
 }
 
 const initialState: UserStateType = {
@@ -32,7 +34,9 @@ const initialState: UserStateType = {
     premium: "",
     admin: false,
     money: -1,
-    _id: ""
+    _id: "",
+    lastTimeConnected: new Date(),
+    lastChestReceived: new Date()
 }
 
 export const authSlice = createSlice({
@@ -50,6 +54,8 @@ export const authSlice = createSlice({
             state.cratesOpened = action.payload.cratesOpened;
             state.premium = action.payload.premium;
             state.admin = action.payload.admin;
+            state.lastChestReceived = action.payload.lastChestReceived;
+            state.lastTimeConnected = action.payload.lastTimeConnected;
         },
         changeXP: (state, action) => {
             state.xp += action.payload;
