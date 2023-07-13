@@ -5,6 +5,7 @@ export interface Crate {
     bought: Date,
     rarity: string,
     cost: number,
+    type: string,
     tier: string,
     owner: string
 }
@@ -63,6 +64,17 @@ export const authSlice = createSlice({
         changeLevelUP: (state) => {
             state.level += 1;
             state.xp = 0;
+        },
+        buyChestFromAuction: (state, action) => {
+            state.money -= action.payload.cost;
+            state.crates.push(action.payload.crates);
+        },
+        readCratesFromDb: (state, action) => {
+            state.crates = action.payload.crates;
+        },
+        receiveChest: (state, action) => {
+            state.crates.push(action.payload);
+            state.lastChestReceived = new Date(Date.now());
         },
         disconnect: () => initialState
     }

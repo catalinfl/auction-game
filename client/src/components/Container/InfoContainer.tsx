@@ -2,17 +2,18 @@ import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { ThemeStateType } from '../../redux/slices/themeSlice';
 
+type InfoContainerProps = {
+    theme: ThemeStateType,
+    crates: number,
+    cratesOpened: number
+}
 
-
-const InfoContainer = ({theme}: { theme: ThemeStateType }) => {
-
-  const user = useSelector((state: RootState) => state.authSlice);
-
+const InfoContainer = ({ theme, crates, cratesOpened }: InfoContainerProps) => {
   return (
     <div className="infoContainer" style={{
         backgroundColor: theme === "dark" ? "#474242" : "rgb(192, 254, 255)",
     }}>
-        <p className="containerInfoText"> You opened {user.cratesOpened} in total. You have {user.crates.length !== null || undefined ? user.crates.length : 0} crates/containers to open. </p>
+        <p className="containerInfoText"> You opened {cratesOpened} in total. You have {crates !== null || undefined ? crates : 0} crates/containers to open. </p>
     </div>  
     )
 }

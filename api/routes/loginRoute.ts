@@ -36,15 +36,15 @@ router.post('/', async (req: Request, res: Response) => {
                 if (user.lastTimeConnected.getDate() != new Date(Date.now()).getDate()) {
                     const crate = await Crate.create({
                         type: "Crate",
-                        rarity: "Common",
+                        rarity: "common",
                         cost: 0,
                         tier: "1",
                         owner: user._id
                     })
                     await crate.save();
                     user.crates.push(crate);
+                    user.lastChestReceived = new Date(Date.now());
                 }
-                user.lastChestReceived = new Date(Date.now());
                 user.save();
                 return res.status(200).json(user);
             }                

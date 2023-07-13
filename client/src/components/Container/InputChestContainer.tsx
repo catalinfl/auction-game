@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ThemeStateType } from '../../redux/slices/themeSlice'
 import { Slider } from "baseui/slider";
 import { Combobox } from "baseui/combobox";
-import { GiBlackBridge } from 'react-icons/gi';
 import { LightTheme, ThemeProvider, createTheme, darkThemePrimitives } from 'baseui';
 
-const InputChestContainer = ({ theme }: { theme: ThemeStateType } ) => {
-    
-    // put max value
-    const [sliderValue, setSliderValue] = useState<number[]>([0, 100]);
+const InputChestContainer = ({ theme, maximumValue }: { theme: ThemeStateType, maximumValue: number } ) => {    
 
-
+    const [sliderValue, setSliderValue] = useState<number[]>([0, maximumValue !== 0 ? maximumValue : 100]);
     const [selectedRarity, setSelectedRarity] = useState<string>("All");
+
+    useEffect(() => {
+        setSliderValue([0, maximumValue])   
+    }, [maximumValue])
+
 
 
   return (
@@ -19,7 +20,7 @@ const InputChestContainer = ({ theme }: { theme: ThemeStateType } ) => {
         backgroundColor: theme === "dark" ? "#474242" : "rgb(192, 254, 255)",
     }}>
         <div className="sliderContainer">
-            <Slider value={sliderValue} max={1000} 
+            <Slider value={sliderValue} max={maximumValue > 100 ? maximumValue : 100} min={0} step={1}
             onChange={({ value }) => setSliderValue(value)}
             overrides={{
                 Tick: {
