@@ -1,17 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ThemeStateType } from '../../redux/slices/themeSlice'
 import { Slider } from "baseui/slider";
 import { Combobox } from "baseui/combobox";
 import { LightTheme, ThemeProvider, createTheme, darkThemePrimitives } from 'baseui';
+import axios from 'axios';
+import { Crate } from '../../redux/slices/authSlice';
 
 const InputChestContainer = ({ theme, maximumValue }: { theme: ThemeStateType, maximumValue: number } ) => {    
 
     const [sliderValue, setSliderValue] = useState<number[]>([0, maximumValue !== 0 ? maximumValue : 100]);
     const [selectedRarity, setSelectedRarity] = useState<string>("All");
+    const [cratesWithOptions, setCratesWithOptions] = useState<Crate[]>([]);
 
     useEffect(() => {
         setSliderValue([0, maximumValue])   
     }, [maximumValue])
+
+    useMemo(() => {
+        axios.get(`http://localhost:3000/api/crates/cost?min=${sliderValue[0]}&max=${sliderValue[1]}`, {withCredentials: true}).then(res => {
+            setCratesWithOptions(res.data)
+        })
+    }, [sliderValue])
 
 
 

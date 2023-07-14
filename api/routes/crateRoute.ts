@@ -2,13 +2,20 @@ import express, { Request, Response, Router }  from "express"
 import Crate from "../models/CrateSchema";
 import User from "../models/UserSchema";
 import { verifyToken } from "../utils/verifyToken";
+import mongoose, { Query } from "mongoose";
 const router = Router();
 
-// buy crate
+type QueryType = {
+    owner: string,
+    cost?: { $gte: number, $lte: number }
+    rarity?: string
+}
+
+
 
 router.post('/buy', verifyToken, async (req: Request, res: Response) => {
     try {
-        const user = await User.findById({ _id: req.body.owner });
+        const user = await User.findById(req.body.owner);
         var createCrate;
         if (user !== null && user !== undefined) {
             if (user.money < req.body.cost) return res.status(400).json({"Error": "Not enough money"});
@@ -35,7 +42,7 @@ router.post('/buy', verifyToken, async (req: Request, res: Response) => {
         res.status(404).json(err);
     }})
 
-
+    
 // get all user crates
 router.get('/:id', verifyToken, async (req: Request, res: Response) => {
     try {
@@ -46,7 +53,26 @@ router.get('/:id', verifyToken, async (req: Request, res: Response) => {
         res.status(404).json(err);
     }
 })
- 
+
+
+router.get('/:id/query', verifyToken, async (req: Request, res: Response) => {
+    try {
+        const query: QueryType = { owner: req.params.id }
+        if (req.query.rarity) {
+            query.rarity = req.query.rarity as string;
+        }
+        if (req.query.min && req.query.max) {
+            query.cost = { $gte: parseInt(req.query.min as string), $lte: parseInt(req.query.max as string) }
+        }
+        const crates = await Crate.find(query);
+        res.status(200).json(crates);
+    }
+    catch(err) {
+        res.status(400).json(err);
+    }
+})
+
+
 // get crates on rarity
 
 router.get('/rarity/:rarity', verifyToken, async (req: Request, res: Response) => {
@@ -61,14 +87,5 @@ router.get('/rarity/:rarity', verifyToken, async (req: Request, res: Response) =
 
 // cost query 
 
-router.get('/cost', verifyToken, async (req: Request, res: Response) => {
-    try {
-        const crates = await Crate.find({ cost: { $gte: req.query.min, $lte: req.query.max } });
-        res.status(200).json(crates);
-    }
-    catch(err) {
-        res.status(404).json(err);
-    }
-})
 
 export default router;

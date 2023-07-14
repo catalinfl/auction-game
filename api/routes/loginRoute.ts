@@ -33,8 +33,8 @@ router.post('/', async (req: Request, res: Response) => {
                     sameSite: 'strict', 
                     expires: new Date(Date.now() + 86400000) });
                 user.lastTimeConnected = new Date(Date.now());
-                if (user.lastTimeConnected.getDate() != new Date(Date.now()).getDate()) {
-                    const crate = await Crate.create({
+                if (user.lastChestReceived.getDate() !== new Date(Date.now()).getDate()) {
+                       const crate = await Crate.create({
                         type: "Crate",
                         rarity: "common",
                         cost: 0,

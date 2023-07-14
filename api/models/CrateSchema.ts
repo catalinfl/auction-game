@@ -23,7 +23,6 @@ const crateSchema = new mongoose.Schema<CrateInterface>({
     },
     cost: {
         type: Number,
-        required: true,
         default: 100
     },
     tier: {
@@ -39,7 +38,6 @@ const crateSchema = new mongoose.Schema<CrateInterface>({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true
     }
 });
 

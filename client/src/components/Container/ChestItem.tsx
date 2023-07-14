@@ -13,7 +13,8 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
 
   return (
     <div className="chestItem" style={{
-      backgroundColor: theme === "dark" ? "#1d6c8c" : "rgb(92, 252, 255)"
+      backgroundColor: theme === "dark" ? "#1d6c8c" : "rgb(92, 252, 255)",
+      color: theme === "dark" ? "white" : "black"
     }}>
         <img className="chestImage" src={Image} />
         <p className="infoRarity"> Rarity: {crate.rarity.slice(0, 1).toUpperCase() + crate.rarity.slice(1, crate.rarity.length)} </p>

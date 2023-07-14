@@ -71,15 +71,17 @@ const userSchema = new mongoose.Schema<UserInterface>({
     admin: {
         type: Boolean,
         default: false,
-        required: false
+        required: true
     },
     lastChestReceived: {
         type: Date,
-        required: false
+        default: new Date(Date.now()),
+        required: true
     },
     lastTimeConnected: {
         type: Date,
-        required: false
+        default: new Date(Date.now()),
+        required: true
     }
 })
 

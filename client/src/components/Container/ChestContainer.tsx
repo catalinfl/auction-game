@@ -12,8 +12,10 @@ const ChestContainer = ({ theme, crates }: { theme: ThemeStateType, crates: Crat
             <div className="chestItems">
                 {crates.map((crate: Crate) => {
                     return (
+                        <> 
                         <ChestItem crate={crate} />
-                    )
+                        </>
+                        )
                 })}
             </div>
         </div>
