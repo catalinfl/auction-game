@@ -11,8 +11,6 @@ type QueryType = {
     rarity?: string
 }
 
-
-
 router.post('/buy', verifyToken, async (req: Request, res: Response) => {
     try {
         const user = await User.findById(req.body.owner);
@@ -58,9 +56,10 @@ router.get('/:id', verifyToken, async (req: Request, res: Response) => {
 router.get('/:id/query', verifyToken, async (req: Request, res: Response) => {
     try {
         const query: QueryType = { owner: req.params.id }
-        if (req.query.rarity) {
-            query.rarity = req.query.rarity as string;
-        }
+        if (req.query.rarity && req.query.rarity !== "All") {
+                query.rarity = req.query.rarity as string;
+                query.rarity = query.rarity.toLowerCase();
+            }
         if (req.query.min && req.query.max) {
             query.cost = { $gte: parseInt(req.query.min as string), $lte: parseInt(req.query.max as string) }
         }

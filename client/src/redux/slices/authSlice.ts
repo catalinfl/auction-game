@@ -80,7 +80,7 @@ export const authSlice = createSlice({
     }
 });
 
-export const { login, disconnect } = authSlice.actions
+export const { login, disconnect, receiveChest, readCratesFromDb, buyChestFromAuction, changeLevelUP, changeXP } = authSlice.actions
 
 export default authSlice.reducer;
 

@@ -9,8 +9,8 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
 
   const theme = useSelector((state: RootState) => state.themeSlice.theme)
 
-  console.log(crate)
 
+  
   return (
     <div className="chestItem" style={{
       backgroundColor: theme === "dark" ? "#1d6c8c" : "rgb(92, 252, 255)",

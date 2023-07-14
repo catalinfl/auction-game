@@ -42,12 +42,13 @@ const Container = () => {
     maximumCrateCost();
   }, [crates])
 
+
   return (
     <div className="container">
       <div className="containerContent">
         <InfoContainer theme={theme} crates={user.crates.length} cratesOpened={user.cratesOpened}/>
-        <InputChestContainer theme={theme} maximumValue={maximumValue}/>
-        <ChestContainer theme={theme} crates={crates} />
+        <InputChestContainer theme={theme} maximumValue={maximumValue} userId={user._id}/>
+        <ChestContainer theme={theme} crates={user.crates} />
       </div>
     </div>    
   )

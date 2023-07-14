@@ -5,23 +5,74 @@ import { Combobox } from "baseui/combobox";
 import { LightTheme, ThemeProvider, createTheme, darkThemePrimitives } from 'baseui';
 import axios from 'axios';
 import { Crate } from '../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 
-const InputChestContainer = ({ theme, maximumValue }: { theme: ThemeStateType, maximumValue: number } ) => {    
+type InputChestContainerType = {
+    theme: ThemeStateType,
+    maximumValue: number,
+    userId: string
+}
+
+const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContainerType) => {    
 
     const [sliderValue, setSliderValue] = useState<number[]>([0, maximumValue !== 0 ? maximumValue : 100]);
     const [selectedRarity, setSelectedRarity] = useState<string>("All");
     const [cratesWithOptions, setCratesWithOptions] = useState<Crate[]>([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setSliderValue([0, maximumValue])   
     }, [maximumValue])
 
-    useMemo(() => {
-        axios.get(`http://localhost:3000/api/crates/cost?min=${sliderValue[0]}&max=${sliderValue[1]}`, {withCredentials: true}).then(res => {
-            setCratesWithOptions(res.data)
-        })
-    }, [sliderValue])
 
+    useEffect(() => {
+
+    let timeoutId: NodeJS.Timeout | null = null;
+    const delay = 3000;
+    
+    const fetchQueryData = () => {
+        if (selectedRarity !== "All") {
+            axios.get(`http://localhost:3000/api/crates/${userId}/query?max=${sliderValue[1]}&min=${sliderValue[0]}&rarity=${selectedRarity}`, {withCredentials: true}).then(res => {
+                setCratesWithOptions(res.data)
+            })
+        } 
+        else {
+            axios.get(`http://localhost:3000/api/crates/${userId}/query?max=${sliderValue[1]}&min=${sliderValue[0]}`, {withCredentials: true}).then(res => {
+                setCratesWithOptions(res.data)
+            })
+            }
+        }
+
+    const handleTimeout = () => {
+        timeoutId = null;
+        fetchQueryData();
+    }
+
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(handleTimeout, delay);
+
+    return () => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+    }
+
+    }, [sliderValue, selectedRarity])
+
+
+    useEffect(() => {
+        dispatch({ type: "auth/readCratesFromDb", payload: { crates: cratesWithOptions }})
+    }, [cratesWithOptions])
+
+
+ 
+    console.log(cratesWithOptions)
+
+    // console.log(test);
+    
 
 
   return (
