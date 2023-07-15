@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface Crate {
     _id: string,
@@ -8,6 +8,11 @@ export interface Crate {
     type: string,
     tier: string,
     owner: string
+}
+
+export type SellChestPayload = {
+    coins: number,
+    crates: Array<Crate>
 }
 
 export type UserStateType = {
@@ -76,11 +81,15 @@ export const authSlice = createSlice({
             state.crates.push(action.payload);
             state.lastChestReceived = new Date(Date.now());
         },
+        sellChest: (state, action: PayloadAction<SellChestPayload>) => {
+            state.money += action.payload.coins;
+            state.crates = action.payload.crates;
+        },
         disconnect: () => initialState
     }
 });
 
-export const { login, disconnect, receiveChest, readCratesFromDb, buyChestFromAuction, changeLevelUP, changeXP } = authSlice.actions
+export const { login, sellChest, disconnect, receiveChest, readCratesFromDb, buyChestFromAuction, changeLevelUP, changeXP } = authSlice.actions
 
 export default authSlice.reducer;
 

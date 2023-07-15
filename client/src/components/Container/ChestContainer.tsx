@@ -28,9 +28,9 @@ const ChestContainer = ({ theme, crates }: { theme: ThemeStateType, crates: Crat
             <div className="chestItems">
                {cratesToRender.map((crate: Crate) => {
                     return (
-                        <> 
+                        <div key={crate._id}> 
                         <ChestItem crate={crate} />
-                        </>
+                        </div>
                         )
                 })}
             </div>

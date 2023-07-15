@@ -19,10 +19,13 @@ export const containerSlice = createSlice({
         },
         fetchCratesQuery: (state, action) => {
             state.crates = action.payload;
+        },
+        fetchCratesAfterDelete: (state, action) => {
+            state.crates = action.payload;
         }
     }
 })
 
-export const { fetchCrates, fetchCratesQuery } = containerSlice.actions; 
+export const { fetchCrates, fetchCratesQuery, fetchCratesAfterDelete } = containerSlice.actions; 
 
 export default containerSlice.reducer;
