@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Crate } from "./authSlice";
 
-const initialState: any = {
+type ContainerType = {
+    crates: Crate[]
+}
+
+
+const initialState: ContainerType = {
     crates: []
 }
 

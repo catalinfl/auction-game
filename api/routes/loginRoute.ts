@@ -35,6 +35,7 @@ router.post('/', async (req: Request, res: Response) => {
                 user.lastTimeConnected = new Date(Date.now());
                 if (user.lastChestReceived.getDate() !== new Date(Date.now()).getDate()) {
                        const crate = await Crate.create({
+                        bought: Date.now(),
                         type: "Crate",
                         rarity: "common",
                         cost: 0,

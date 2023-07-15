@@ -8,6 +8,7 @@ import containerSlice from './slices/containerSlice';
 const persistConfig = {
     key: 'root',
     storage: storage,
+    whitelist: ['themeSlice', 'authSlice']
 };
 
 const rootReducer = combineReducers({

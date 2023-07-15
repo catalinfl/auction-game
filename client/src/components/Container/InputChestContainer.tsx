@@ -5,7 +5,8 @@ import { Combobox } from "baseui/combobox";
 import { LightTheme, ThemeProvider, createTheme, darkThemePrimitives } from 'baseui';
 import axios from 'axios';
 import { Crate } from '../../redux/slices/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCratesQuery } from '../../redux/slices/containerSlice';
 
 type InputChestContainerType = {
     theme: ThemeStateType,
@@ -64,16 +65,9 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
 
 
     useEffect(() => {
-        dispatch({ type: "auth/readCratesFromDb", payload: { crates: cratesWithOptions }})
-    }, [cratesWithOptions])
-
-
+        dispatch(fetchCratesQuery(cratesWithOptions))
+    }, [cratesWithOptions, dispatch])
  
-    console.log(cratesWithOptions)
-
-    // console.log(test);
-    
-
 
   return (
     <div className="inputChestContainer" style={{
