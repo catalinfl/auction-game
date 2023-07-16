@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux"
 import Image from "../../assets/photos/img.png"
 import { GiCoins } from "react-icons/gi"
@@ -9,6 +8,8 @@ import { useEffect, useState } from "react"
 import { KIND as ButtonKind } from "baseui/button";
 import axios from "axios"
 import { fetchCratesAfterDelete } from "../../redux/slices/containerSlice"
+import Notification from "./Notification"
+import { deleteNotification, setNotification } from "../../redux/slices/notificationSlice"
 
 const ChestItem = ({ crate }: { crate: Crate } ) => {
 
@@ -23,6 +24,7 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
     const newContainers = containers.filter((container: Crate) => container._id !== crate._id)
     dispatch(fetchCratesAfterDelete(newContainers));
     dispatch(sellChest({ coins: crate.cost / 2, crates: containers }))
+    dispatch(setNotification({ message: "Item sold successfully", title: "Success", kind: "positive", type: "success", _id: crate._id }))
   }
 
   return (
@@ -45,7 +47,10 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
         <button type="button"
         style={{
           backgroundColor: theme === "light" ? "rgba(108, 222, 230, 0.995)" : "rgb(31, 60, 69)"
-        }} className="openButton sell" onClick={() => setIsOpen(true)}> Sell </button>
+        }} className="openButton sell" onClick={() => {
+          setIsOpen(true);
+          dispatch(deleteNotification())
+        }}> Sell </button>
         </div>
         <div className="modalContainer">
           <Modal

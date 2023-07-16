@@ -10,15 +10,12 @@ import { useSelector } from 'react-redux'
 const ChestContainer = ({ theme, crates }: { theme: ThemeStateType, crates: Crate[]}) => {
 
     const containers = useSelector((state: RootState) => state.containerSlice.crates)
-
     const [cratesToRender, setCratesToRender] = useState<Crate[]>(crates)
     
     useEffect(() => {
         setCratesToRender(containers) 
     }, [crates, containers])
     
-    
-
   return (
     <div className="chestContainer" style={{
         backgroundColor: theme === "dark" ? "#474242" : "rgb(192, 254, 255)"
@@ -36,8 +33,8 @@ const ChestContainer = ({ theme, crates }: { theme: ThemeStateType, crates: Crat
             </div>
         </div>
         ) :
-        <div className="contanierNoDisplay"> 
-        <p style={{ color: "white", fontSize: '1.5rem', fontFamily: 'DosisBold' }}> No items to display </p> 
+        <div className="contanierNoDisplay" style={{ padding: "1rem" }}> 
+        <p style={{ color: theme === "dark" ? "white" : "black", textAlign: "center", fontSize: '1.5rem', fontFamily: 'DosisBold' }}> No items to display </p> 
         </div>
         }
     </div>

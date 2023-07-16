@@ -6,6 +6,8 @@
     margin: 0 auto;
     margin-top: 1rem;
     flex-direction: column;
+    position: relative;
+    
 
     .infoContainer {
         display: flex;
@@ -142,4 +144,30 @@
             }
         }
 
+    }
+
+    .notificationContainer {
+        position: sticky;
+        width: 400px;
+        bottom: 2vw;
+        left: 100%;
+        cursor: pointer;
+
+        @include little {
+            bottom: 5vh;
+            right: 5vw;
+            width: 300px;
+        }
+
+        @include sm { 
+            bottom: 5vh;
+            right: 5vw;
+            width: 300px;
+        }
+
+        @include md {
+            bottom: 5vh;
+            right: 5vw;
+            width: 300px;
+        }
     }

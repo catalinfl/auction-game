@@ -6,6 +6,7 @@ import InputChestContainer from "./InputChestContainer";
 import ChestContainer from "./ChestContainer";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
+import Notification from "./Notification";
 
 const Container = () => {
 
@@ -49,6 +50,7 @@ const Container = () => {
         <InfoContainer theme={theme} crates={user.crates.length} cratesOpened={user.cratesOpened}/>
         <InputChestContainer theme={theme} maximumValue={maximumValue} userId={user._id}/>
         <ChestContainer theme={theme} crates={user.crates} />
+        <Notification />
       </div>
     </div>    
   )

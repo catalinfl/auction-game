@@ -22,14 +22,14 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setSliderValue([0, maximumValue])   
+        setSliderValue([0, maximumValue < 100 ? 100 : maximumValue])   
     }, [maximumValue])
 
 
     useEffect(() => {
 
     let timeoutId: NodeJS.Timeout | null = null;
-    const delay = 3000;
+    const delay = 1000;
     
     const fetchQueryData = () => {
         if (selectedRarity !== "All") {
@@ -64,6 +64,10 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
     }, [sliderValue, selectedRarity])
 
 
+    
+
+
+
     useEffect(() => {
         dispatch(fetchCratesQuery(cratesWithOptions))
     }, [cratesWithOptions, dispatch])
@@ -93,7 +97,6 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
                 Thumb: {
                     style: {
                         backgroundColor: `${theme === "light" ? "rgba(108, 222, 230, 0.995)" : "rgb(31, 60, 69)"}`,
-                        border: `${theme === "light" ? "solid 1px grey" : null }`
                     }
                 }
 

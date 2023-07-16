@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authSlice from './slices/authSlice';
 import containerSlice from './slices/containerSlice';
+import notificationSlice from './slices/notificationSlice';
 
 const persistConfig = {
     key: 'root',
@@ -12,7 +13,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    themeSlice, authSlice, containerSlice
+    themeSlice, authSlice, containerSlice, notificationSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

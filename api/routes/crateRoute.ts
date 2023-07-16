@@ -62,8 +62,8 @@ router.delete('/:id', verifyToken, async (req: Request, res: Response) => {
         if (crate !== null && crate !== undefined) {
             if (user !== null && user !== undefined) {
                 user.money += crate.cost / 2;
-                user.crates = user.crates.filter((crate) => crate !== id);
-                user.save();
+                user.crates = user.crates.filter((crateId) => crateId.toString() !== id);
+                await user.save();
                 await Crate.findByIdAndDelete(id);
                 res.status(200).json({"Success": "Crate was sold"});
             }
