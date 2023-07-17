@@ -5,7 +5,7 @@ import { Combobox } from "baseui/combobox";
 import { LightTheme, ThemeProvider, createTheme, darkThemePrimitives } from 'baseui';
 import axios from 'axios';
 import { Crate } from '../../redux/slices/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchCratesQuery } from '../../redux/slices/containerSlice';
 
 type InputChestContainerType = {
@@ -96,7 +96,7 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
                 },
                 Thumb: {
                     style: {
-                        backgroundColor: `${theme === "light" ? "rgba(108, 222, 230, 0.995)" : "rgb(31, 60, 69)"}`,
+                        backgroundColor: `${theme === "light" ? "rgba(29, 213, 226, 0.995)" : "rgb(31, 60, 69)"}`,
                     }
                 }
 
@@ -107,8 +107,6 @@ const InputChestContainer = ({ theme, maximumValue, userId }: InputChestContaine
             <p> Select rarity </p>
             <ThemeProvider 
             theme={theme === "dark" ? createTheme(darkThemePrimitives, {
-                    comboboxListItemFocus: "#ff0000",
-                    combolistListItemHover: "#ff0000"
             }) : LightTheme}
             > 
             <Combobox 

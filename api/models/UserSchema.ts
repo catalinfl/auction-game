@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import CrateSchema, { CrateInterface } from "./CrateSchema";
+import { CrateInterface } from "./CrateSchema";
+import { ObjectInterface } from "./ObjectSchema";
 
 export interface UserInterface {
     _id: string,
@@ -14,7 +15,8 @@ export interface UserInterface {
     premium: string,
     admin: boolean,
     lastChestReceived: Date,
-    lastTimeConnected: Date
+    lastTimeConnected: Date,
+    objects: Array<ObjectInterface["_id"]>
 }
 
 const userSchema = new mongoose.Schema<UserInterface>({
@@ -82,6 +84,11 @@ const userSchema = new mongoose.Schema<UserInterface>({
         type: Date,
         default: new Date(Date.now()),
         required: true
+    },
+    objects: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Object"}],
+        default: [],
+        required: false
     }
 })
 

@@ -4,18 +4,21 @@ import { GiCoins } from "react-icons/gi"
 import { RootState } from "../../redux/store"
 import { Crate, sellChest } from "../../redux/slices/authSlice"
 import { ModalHeader, ModalBody, ModalFooter, ModalButton, Modal, SIZE, ROLE } from "baseui/modal"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { KIND as ButtonKind } from "baseui/button";
 import axios from "axios"
 import { fetchCratesAfterDelete } from "../../redux/slices/containerSlice"
-import Notification from "./Notification"
 import { deleteNotification, setNotification } from "../../redux/slices/notificationSlice"
+import ParcelBoxImg from "../../assets/photos/parcelbox.svg"
+import ContainerImg from "../../assets/photos/cargo.svg"
+import Container from "./Container"
 
 const ChestItem = ({ crate }: { crate: Crate } ) => {
 
   const theme = useSelector((state: RootState) => state.themeSlice.theme)
   const [isOpen, setIsOpen] = useState(false);
   const containers = useSelector((state: RootState) => state.containerSlice.crates)
+  const [isContainerOpen, setIsContainerOpen] = useState(false);
   const dispatch = useDispatch();
 
   const onSell = () => {
@@ -27,6 +30,11 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
     dispatch(setNotification({ message: "Item sold successfully", title: "Success", kind: "positive", type: "success", _id: crate._id }))
   }
 
+  const onChestOpen = () => {
+    
+  }
+
+  
   return (
     <div className="chestItem" key={crate._id} style={{
       backgroundColor: theme === "dark" ? "#1d6c8c" : "rgb(92, 252, 255)",
@@ -36,14 +44,14 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
         <p className="infoRarity"> Rarity: {crate?.rarity?.slice(0, 1).toUpperCase() + crate?.rarity?.slice(1, crate.rarity.length)} </p>
         <p className="infoType"> Type: {crate?.type?.slice(0, 1).toUpperCase() + crate?.type?.slice(1, crate.type.length)}
         </p>
-        <p className="infoTier"> Tier: {crate.type} </p>
+        <p className="infoTier"> Tier: {crate.tier} </p>
         <p className="infoCost"> Cost: {crate.cost} <GiCoins style={{color: "yellow"}}/> </p>
         <div className="buttonChestContainer">
         <button type="button" 
         style={{
           backgroundColor: theme === "light" ? "rgba(108, 222, 230, 0.995)" : "rgb(31, 60, 69)"
         }}
-          className="openButton"> Open </button>
+          className="openButton" onClick={() => setIsContainerOpen(true)}> Open </button>
         <button type="button"
         style={{
           backgroundColor: theme === "light" ? "rgba(108, 222, 230, 0.995)" : "rgb(31, 60, 69)"
@@ -113,6 +121,68 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
             }}
             onClick={() => onSell()}
             > Ok </ModalButton>
+          </ModalFooter>
+          </Modal>
+        </div>
+        <div className="openModalContainer"    >
+          <Modal
+          onClose={() => setIsContainerOpen(false)}
+          closeable
+          isOpen={isContainerOpen}
+          animate
+          autoFocus
+          size={SIZE.default}
+          role={ROLE.dialog}
+          overrides={{ 
+            Dialog: {
+              style: () => ({
+                backgroundColor: 'rgb(15, 37, 60)'
+              })
+            },
+            DialogContainer: {
+              style: () => ({
+                backgroundColor: 'hsla(184, 55.5%, 5.294117647058823%, 0.596)'
+              })
+            },
+            Close: {
+              style: () => ({
+                backgroundColor: 'rgb(97, 153, 210)'
+              })
+            }
+          }}
+        >
+          <ModalHeader style={{
+            color: "white",
+            fontFamily: "DosisBold",
+            textAlign: "center",
+            fontSize: "1.5rem"
+          }}> <img src={crate?.type?.toLowerCase() === "crate" ? ParcelBoxImg : ContainerImg} width="200" /> </ModalHeader>
+          <ModalBody style={{ 
+            color: "white", 
+            fontFamily: "DosisBold", 
+            fontSize: "1.2rem",
+            display: 'flex',
+            alignItems: 'center',
+            gap: "0.25rem",
+            marginTop: '2rem',
+            }}>
+            Are you sure you want to open this {crate?.type?.toLowerCase()}?
+          </ModalBody>
+          <ModalFooter>
+            <ModalButton kind={ButtonKind.secondary} style={{
+              backgroundColor: "rgb(97, 153, 210)",
+              fontFamily: "DosisRegular"
+            }}
+            onClick={() => setIsContainerOpen(false)}
+            >
+              Cancel
+            </ModalButton>
+            <ModalButton
+            style={{
+              backgroundColor: "rgb(97, 153, 210)",
+              fontFamily: "DosisRegular"
+            }}
+            > Open </ModalButton>
           </ModalFooter>
           </Modal>
         </div>

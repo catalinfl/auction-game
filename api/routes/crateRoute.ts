@@ -1,8 +1,9 @@
-import express, { Request, Response, Router }  from "express"
-import Crate from "../models/CrateSchema";
+import express, { NextFunction, Request, Response, Router }  from "express"
+import Crate, { CrateInterface } from "../models/CrateSchema";
 import User from "../models/UserSchema";
 import { verifyToken } from "../utils/verifyToken";
-import mongoose, { Query } from "mongoose";
+import { objects, selectObject } from "../utils/objects";
+
 const router = Router();
 
 type QueryType = {
@@ -22,8 +23,14 @@ router.post('/buy', verifyToken, async (req: Request, res: Response) => {
                     bought: Date.now(),
                     rarity: req.body.rarity,
                     cost: req.body.cost,
+                    type: req.body.type,
                     tier: req.body.tier,
-                    owner: req.body.owner
+                    owner: req.body.owner,
+                    objects: req.body.rarity === "common" ? 5 :
+                             req.body.rarity === "uncommon" ? 7 :
+                             req.body.rarity === "rare" ? 9 :
+                             req.body.rarity === "epic" ? 11 :
+                             req.body.rarity === "legendary" ? 13 : 5                             
                 })
                 createCrate.save();
                 user.crates.push(createCrate._id);
@@ -49,6 +56,43 @@ router.get('/:id', verifyToken, async (req: Request, res: Response) => {
     }
     catch(err) {
         res.status(404).json(err);
+    }
+}) 
+
+// open crate
+
+router.get('/open/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    if (id !== null || id !== undefined) {
+        try {
+            const crate = await Crate.findById(id);
+            console.log(crate?.owner.toString())
+            const user = await User.findById(crate?.owner.toString());
+            console.log(user);
+            if (crate !== null && crate !== undefined && user !== null && user !== undefined) {
+                 if (crate.objects > 0) {
+                     crate.objects = crate.objects - 1;
+                     console.log("a ajuns")
+                     const obj = selectObject();
+                     console.log(obj)
+                     user.objects.push(obj);
+                     console.log("a ajuns si aici")
+                     await user.save();
+                     await crate.save();
+                     res.status(200).json({"Success": "Object was added"})
+                 }
+                 else {
+                         user.cratesOpened += 1;
+                         user.crates = user?.crates.filter((crateId: CrateInterface) => crateId.toString() !== id);
+                         await user.save();
+                         await Crate.findByIdAndDelete(id);
+                         res.status(200).json({"Success": "Crate was opened"});
+                        }
+             }
+            }
+        catch(err) {
+                res.status(404).json(err);
+        }
     }
 })
 
@@ -96,6 +140,7 @@ router.get('/:id/query', verifyToken, async (req: Request, res: Response) => {
         res.status(400).json(err);
     }
 })
+
 
 
 

@@ -5,11 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { deleteNotification } from "../../redux/slices/notificationSlice";
 
-type NotificationProps = {
-    message: string,
-    title: string,
-    kind: "positive" | "negative" | "info" | "warning"
-}
 
 function ActionIcon({size} : { size: string }) {
     return (

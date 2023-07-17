@@ -7,7 +7,8 @@ export interface CrateInterface extends mongoose.Document {
     cost: number,
     tier: string,
     type: string,
-    owner: mongoose.Types.ObjectId | UserInterface["_id"]
+    owner: mongoose.Types.ObjectId | UserInterface["_id"],
+    objects: number
 }
 
 const crateSchema = new mongoose.Schema<CrateInterface>({
@@ -38,6 +39,11 @@ const crateSchema = new mongoose.Schema<CrateInterface>({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+    },
+    objects: {
+        type: Number,
+        required: true,
+        default: 5
     }
 });
 
