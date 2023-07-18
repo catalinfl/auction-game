@@ -11,15 +11,17 @@ import { fetchCratesAfterDelete } from "../../redux/slices/containerSlice"
 import { deleteNotification, setNotification } from "../../redux/slices/notificationSlice"
 import ParcelBoxImg from "../../assets/photos/parcelbox.svg"
 import ContainerImg from "../../assets/photos/cargo.svg"
-import Container from "./Container"
+import ContainerOpening from "./ContainerOpening"
 
 const ChestItem = ({ crate }: { crate: Crate } ) => {
 
   const theme = useSelector((state: RootState) => state.themeSlice.theme)
   const [isOpen, setIsOpen] = useState(false);
   const containers = useSelector((state: RootState) => state.containerSlice.crates)
-  const [isContainerOpen, setIsContainerOpen] = useState(false);
+  const [isContainerOpen, setIsContainerOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const [containerOpening, setContainerOpening] = useState<boolean>(false);
+
 
   const onSell = () => {
     axios.delete(`http://localhost:3000/api/crates/${crate._id}`, { withCredentials: true })
@@ -31,7 +33,10 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
   }
 
   const onChestOpen = () => {
-    
+      setIsContainerOpen(false);
+      setContainerOpening(true);
+
+
   }
 
   
@@ -72,17 +77,18 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
           overrides={{ 
             Dialog: {
               style: () => ({
-                backgroundColor: 'rgb(15, 37, 60)'
+                backgroundColor: theme === "dark" ? "rgb(15, 37, 60)" : "rgb(83, 184, 215)"
               })
             },
             DialogContainer: {
               style: () => ({
-                backgroundColor: 'hsla(184, 55.5%, 5.294117647058823%, 0.596)'
+                backgroundColor: theme === "dark" ? "hsla(184, 55.5%, 5.294117647058823%, 0.596)" : "rgba(35, 171, 212, 0.3)" 
               })
             },
             Close: {
               style: () => ({
-                backgroundColor: 'rgb(97, 153, 210)'
+                backgroundColor: theme === "dark" ? 'rgb(97, 153, 210)' : "rgb(57, 117, 177)", 
+                color: theme === "dark" ? "black" : "white"
               })
             }
           }}
@@ -136,17 +142,18 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
           overrides={{ 
             Dialog: {
               style: () => ({
-                backgroundColor: 'rgb(15, 37, 60)'
+                backgroundColor: theme === "dark" ? "rgb(15, 37, 60)" : "rgb(83, 184, 215)"
               })
             },
             DialogContainer: {
               style: () => ({
-                backgroundColor: 'hsla(184, 55.5%, 5.294117647058823%, 0.596)'
+                backgroundColor: theme === "dark" ? "hsla(184, 55.5%, 5.294117647058823%, 0.596)" : "rgba(35, 171, 212, 0.3)" 
               })
             },
             Close: {
               style: () => ({
-                backgroundColor: 'rgb(97, 153, 210)'
+                backgroundColor: theme === "dark" ? 'rgb(97, 153, 210)' : "rgb(57, 117, 177)", 
+                color: theme === "dark" ? "black" : "white"
               })
             }
           }}
@@ -170,7 +177,7 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
           </ModalBody>
           <ModalFooter>
             <ModalButton kind={ButtonKind.secondary} style={{
-              backgroundColor: "rgb(97, 153, 210)",
+              backgroundColor: theme === "dark" ? 'rgb(97, 153, 210)' : "rgb(57, 117, 177)",
               fontFamily: "DosisRegular"
             }}
             onClick={() => setIsContainerOpen(false)}
@@ -179,13 +186,21 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
             </ModalButton>
             <ModalButton
             style={{
-              backgroundColor: "rgb(97, 153, 210)",
+              backgroundColor: theme === "dark" ? 'rgb(97, 153, 210)' : "rgb(57, 117, 177)",
               fontFamily: "DosisRegular"
             }}
+            onClick={() => onChestOpen()}
             > Open </ModalButton>
           </ModalFooter>
           </Modal>
         </div>
+            {
+              containerOpening ? (
+                <div className="containerOpening">
+                  <ContainerOpening />
+                </div>
+              ) : null
+            }
     </div>
   )
 }
