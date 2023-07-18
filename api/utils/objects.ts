@@ -1,4 +1,12 @@
-export const objects = [
+export type ObjectsType = {
+    name: string,
+    rarity: string,
+    description: string,
+    probability: number,
+    cost: number
+}
+
+export const objects: ObjectsType[] = [
     { name: "Object 1", rarity: "common", description: "cool obj", probability: 0.1, cost: 50 },
     { name: "Object 2", rarity: "common", description: "cool obj", probability: 0.1, cost: 50 },
     { name: "Object 3", rarity: "common", description: "cool obj", probability: 0.1, cost: 50 },

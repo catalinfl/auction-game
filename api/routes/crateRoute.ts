@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response, Router }  from "express"
 import Crate, { CrateInterface } from "../models/CrateSchema";
 import User from "../models/UserSchema";
 import { verifyToken } from "../utils/verifyToken";
-import { objects, selectObject } from "../utils/objects";
+import { ObjectsType, objects, selectObject } from "../utils/objects";
 
 const router = Router();
 
@@ -60,34 +60,27 @@ router.get('/:id', verifyToken, async (req: Request, res: Response) => {
 }) 
 
 // open crate
-
 router.get('/open/:id', verifyToken, async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
     if (id !== null || id !== undefined) {
         try {
             const crate = await Crate.findById(id);
-            console.log(crate?.owner.toString())
             const user = await User.findById(crate?.owner.toString());
-            console.log(user);
             if (crate !== null && crate !== undefined && user !== null && user !== undefined) {
-                 if (crate.objects > 0) {
                      crate.objects = crate.objects - 1;
-                     console.log("a ajuns")
                      const obj = selectObject();
-                     console.log(obj)
                      user.objects.push(obj);
-                     console.log("a ajuns si aici")
-                     await user.save();
-                     await crate.save();
-                     res.status(200).json({"Success": "Object was added"})
-                 }
-                 else {
-                         user.cratesOpened += 1;
-                         user.crates = user?.crates.filter((crateId: CrateInterface) => crateId.toString() !== id);
-                         await user.save();
-                         await Crate.findByIdAndDelete(id);
-                         res.status(200).json({"Success": "Crate was opened"});
-                        }
+
+                     if (crate.objects === 0) {
+                        user.cratesOpened += 1;
+                        user.crates = user?.crates.filter((crateId: CrateInterface) => crateId.toString() !== id);
+                        await Crate.findByIdAndDelete(id);
+                        res.status(200).json({"Success": "Crate was opened"});
+                    }
+
+                    await user.save();
+                    await crate.save();
+                    res.status(200).json({obj})                     
              }
             }
         catch(err) {
@@ -95,7 +88,6 @@ router.get('/open/:id', verifyToken, async (req: Request, res: Response, next: N
         }
     }
 })
-
 
 // sell crate
 router.delete('/:id', verifyToken, async (req: Request, res: Response) => {

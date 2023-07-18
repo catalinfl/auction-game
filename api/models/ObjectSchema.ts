@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { UserInterface } from "./UserSchema";
 
+// not used anymore
+
 export interface ObjectInterface extends mongoose.Document {
     name: string,
     description: string,

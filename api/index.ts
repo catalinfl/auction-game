@@ -4,7 +4,6 @@ import cors from "cors"
 import dotenv from "dotenv"
 import registerRoute from "./routes/registerRoute"
 import loginRoute from "./routes/loginRoute"
-import homeRoute from "./routes/homeRoute"
 import cookieParser from "cookie-parser"
 import crateRoute from "./routes/crateRoute"
 
@@ -14,7 +13,7 @@ const app = express();
 
 
 app.use(express.json());
-app.use(cors( { origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser())
 
 // Register Route 
@@ -23,7 +22,7 @@ app.use('/api/register', registerRoute);
 // Login Route
 app.use('/api/login', loginRoute);
 
-//
+// Crate Route
 app.use('/api/crates', crateRoute);
 
 
