@@ -7,6 +7,7 @@ import ChestContainer from "./ChestContainer";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Notification from "./Notification";
+import ContainerOpening from "./ContainerOpening";
 
 const Container = () => {
 
@@ -43,6 +44,7 @@ const Container = () => {
     maximumCrateCost();
   }, [crates])
 
+  const chest = useSelector((state: RootState) => state.chestSlice.chest);
 
   return (
     <div className="container">
@@ -51,6 +53,11 @@ const Container = () => {
         <InputChestContainer theme={theme} maximumValue={maximumValue} userId={user._id}/>
         <ChestContainer theme={theme} crates={user.crates} />
         <Notification />
+        {chest.length !== 0 && chest !== null ? 
+        <div className="chestContainerAnim">
+          <ContainerOpening /> 
+        </div>
+        : null}
       </div>
     </div>    
   )

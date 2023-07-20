@@ -11,7 +11,7 @@ import { fetchCratesAfterDelete } from "../../redux/slices/containerSlice"
 import { deleteNotification, setNotification } from "../../redux/slices/notificationSlice"
 import ParcelBoxImg from "../../assets/photos/parcelbox.svg"
 import ContainerImg from "../../assets/photos/cargo.svg"
-import ContainerOpening from "./ContainerOpening"
+import chestSlice, { startOpening } from "../../redux/slices/chestSlice"
 
 const ChestItem = ({ crate }: { crate: Crate } ) => {
 
@@ -20,8 +20,6 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
   const containers = useSelector((state: RootState) => state.containerSlice.crates)
   const [isContainerOpen, setIsContainerOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const [containerOpening, setContainerOpening] = useState<boolean>(false);
-
 
   const onSell = () => {
     axios.delete(`http://localhost:3000/api/crates/${crate._id}`, { withCredentials: true })
@@ -34,10 +32,10 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
 
   const onChestOpen = () => {
       setIsContainerOpen(false);
-      setContainerOpening(true);
-
-
+      dispatch(startOpening({ chest: crate._id }))
   }
+  
+
 
   
   return (
@@ -194,13 +192,6 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
           </ModalFooter>
           </Modal>
         </div>
-            {
-              containerOpening ? (
-                <div className="containerOpening">
-                  <ContainerOpening />
-                </div>
-              ) : null
-            }
     </div>
   )
 }

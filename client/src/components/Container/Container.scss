@@ -171,3 +171,18 @@
             width: 300px;
         }
     }
+
+    .ContainerCanvas { 
+        display: flex;
+        background-color: rgba(84, 159, 165, 0.12);
+        box-shadow: 5px 5px 12px 1px rgba(84, 159, 165, 0.75);
+    }
+
+    .chestContainerAnim {
+        width: 50vw;
+        height: 43vw;
+        left: 13vw;
+        z-index: 999;
+        position: absolute;
+        top: 0;
+    }

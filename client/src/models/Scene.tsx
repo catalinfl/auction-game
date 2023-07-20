@@ -9,15 +9,19 @@ Title: Low-Poly Pirates Chest
 
 import { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import { Group } from 'three';
 
 export function Model(props: any) {
-  const group = useRef()
+  const group = useRef<Group>();
   const { nodes, materials, animations } = useGLTF('/scene-transformed.glb') as any
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
-    group.current?.rotation.set(0, 0.2, 0);
-    actions?.OpenNormal?.play() 
+    group.current?.rotation.set(0, 0.05, 0);
+    group.current?.scale.addScalar(0.5);
+    onclick = () => {
+      actions?.OpenNormal?.play()
+    }
   }, [actions])
 
   return (
