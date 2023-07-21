@@ -7,22 +7,46 @@ Source: https://sketchfab.com/3d-models/low-poly-pirates-chest-084162b39dfd4808a
 Title: Low-Poly Pirates Chest
 */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 import { Group } from 'three';
 
 export function Model(props: any) {
   const group = useRef<Group>();
   const { nodes, materials, animations } = useGLTF('/scene-transformed.glb') as any
-  const { actions } = useAnimations(animations, group)
+  const { actions } = useAnimations(animations, group) as any
+  const [isChestOpening, setIsChestOpening] = useState(false);
 
   useEffect(() => {
     group.current?.rotation.set(0, 0.05, 0);
     group.current?.scale.addScalar(0.5);
+
     onclick = () => {
-      actions?.OpenNormal?.play()
-    }
+      if (!isChestOpening) {
+        actions?.OpenNormal?.play();
+        actions.OpenNormal.setLoop(0, 0);
+        actions.OpenNormal.clampWhenFinished = true;
+        setIsChestOpening(true);
+      }
+    }   
   }, [actions])
+
+  useFrame((state, delta) => {
+    if (group.current) {
+        if (isChestOpening && state.clock.elapsedTime < 1) {
+          group.current.scale.addScalar(0.5 * delta);
+        }
+        if (state.clock.elapsedTime > 1 && state.clock.elapsedTime < 2) {
+          group.current.scale.addScalar(delta * -0.7)
+        }
+        if (state.clock.elapsedTime > 2) {
+          group.current.rotateY(0.05 * delta);
+        }
+    }
+  })
+
+  
 
   return (
     <group ref={group} {...props} dispose={null}>

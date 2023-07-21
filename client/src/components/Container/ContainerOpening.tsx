@@ -1,12 +1,7 @@
 import { Canvas } from "@react-three/fiber"
-import { Model } from "../../models/Scene"
-import { OrbitControls } from "@react-three/drei"
-import { useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
+import { Model } from "../../models/Scene1"
 
 const ContainerOpening = () => {
-
-
 
   return (
     <Canvas className="ContainerCanvas">
