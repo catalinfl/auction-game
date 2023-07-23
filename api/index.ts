@@ -11,7 +11,6 @@ dotenv.config();
 
 const app = express();
 
-
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser())
@@ -33,8 +32,6 @@ mongoose.connect(URL).then(() => {
 }).catch((error) => {
     console.log(error);
 })
-
-
 
 app.listen(3000, () => {
     console.log("Server is working on port 3000");

@@ -21,7 +21,7 @@ export function Model(props: any) {
   useEffect(() => {
     group.current?.rotation.set(0, 0.05, 0);
     group.current?.scale.addScalar(0.5);
-
+    
     onclick = () => {
       if (!isChestOpening) {
         actions?.OpenNormal?.play();
@@ -30,7 +30,9 @@ export function Model(props: any) {
         setIsChestOpening(true);
       }
     }   
-  }, [actions])
+  }, [actions, isChestOpening])
+
+
 
   useFrame((state, delta) => {
     if (group.current) {

@@ -35,9 +35,6 @@ const ChestItem = ({ crate }: { crate: Crate } ) => {
       dispatch(startOpening({ chest: crate._id }))
   }
   
-
-
-  
   return (
     <div className="chestItem" key={crate._id} style={{
       backgroundColor: theme === "dark" ? "#1d6c8c" : "rgb(92, 252, 255)",
